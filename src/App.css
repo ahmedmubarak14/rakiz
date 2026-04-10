@@ -28,7 +28,7 @@
 
 .app-shell.is-ar .hero-copy h1 {
   max-width: 14ch;
-  font-size: clamp(3.2rem, 7vw, 5.35rem);
+  font-size: clamp(2.35rem, 7vw, 5.35rem);
   line-height: 1.18;
 }
 
@@ -1292,6 +1292,11 @@
 
   .app-shell.is-ar .contact-copy {
     padding-left: 0;
+  }
+
+  /* Override higher-specificity Arabic grid rule so hero stacks on mobile */
+  .app-shell.is-ar .hero-grid {
+    grid-template-columns: 1fr;
   }
 }
 
