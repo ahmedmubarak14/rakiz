@@ -171,11 +171,25 @@ const partners: Partner[] = [
     alt: 'Balubaid Group',
     className: 'partner-image-balubaid',
   },
+  {
+    key: 'dolphin',
+    kind: 'image',
+    src: 'partners/dolphin.svg',
+    alt: 'Dolphin',
+    className: 'partner-image-dolphin',
+  },
+  {
+    key: 'dyson',
+    kind: 'image',
+    src: 'partners/dyson.svg',
+    alt: 'Dyson',
+    className: 'partner-image-dyson',
+  },
 ]
 
 const partnerAccessibilityLabel = {
-  en: 'Success partners: Ideal Standard, SACI, iGuzzini, Schneider Electric, MK Electric, RS PRO, Binzagr, alfanar, Sancura, Richmond, Urban Life, Aquaeco, Aquadrain, BagnoDesign, Bystro, Gymkhana, Surfaces, and Balubaid Group.',
-  ar: 'شركاء النجاح: Ideal Standard وSACI وiGuzzini وSchneider Electric وMK Electric وRS PRO وBinzagr وalfanar وSancura وRichmond وUrban Life وAquaeco وAquadrain وBagnoDesign وBystro وGymkhana وSurfaces وBalubaid Group.',
+  en: 'Success partners: Ideal Standard, SACI, iGuzzini, Schneider Electric, MK Electric, RS PRO, Binzagr, alfanar, Sancura, Richmond, Urban Life, Aquaeco, Aquadrain, BagnoDesign, Bystro, Gymkhana, Surfaces, Balubaid Group, Dolphin, and Dyson.',
+  ar: 'شركاء النجاح: Ideal Standard وSACI وiGuzzini وSchneider Electric وMK Electric وRS PRO وBinzagr وalfanar وSancura وRichmond وUrban Life وAquaeco وAquadrain وBagnoDesign وBystro وGymkhana وSurfaces وBalubaid Group وDolphin وDyson.',
 } as const
 
 function getInitialLanguage(): Language {

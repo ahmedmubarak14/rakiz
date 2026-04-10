@@ -726,6 +726,15 @@
   max-height: 1.8rem;
 }
 
+.partner-image-dolphin {
+  max-height: 2.6rem;
+}
+
+.partner-image-dyson {
+  max-width: 8rem;
+  max-height: 2rem;
+}
+
 .partner-wordmark {
   display: inline-flex;
   align-items: center;
