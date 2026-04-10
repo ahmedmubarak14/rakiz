@@ -1235,6 +1235,7 @@
 .footer-meta-item strong {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 700;
+  word-break: break-all;
 }
 
 .footer-brand p,
@@ -1254,6 +1255,68 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Skip to main content — visually hidden until focused */
+.skip-link {
+  position: absolute;
+  top: -10rem;
+  left: 1rem;
+  z-index: 999;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.94rem;
+  text-decoration: none;
+  transition: top 180ms ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Sticky WhatsApp bar on mobile — shown when scrolled past hero */
+.sticky-cta {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .sticky-cta {
+    display: flex;
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 50;
+    gap: 0;
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+
+  .sticky-cta.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(1.5rem);
+  }
+
+  .sticky-cta a {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3.4rem;
+    background: var(--lime);
+    color: var(--navy);
+    font-size: 0.96rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 999px;
+  }
 }
 
 @keyframes marquee {
@@ -1284,6 +1347,15 @@
   .contact-card-grid,
   .trust-metric-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card p {
+    flex: 1;
   }
 
   .contact-copy {
@@ -1369,18 +1441,30 @@
     padding-block: 1rem 0;
   }
 
+  /* Show copy (with CTA) first, art below on mobile */
+  .hero-visual {
+    order: 0;
+  }
+
   .hero-actions,
-  .contact-actions,
   .footer-grid,
   .footer-brand {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .button,
+  .contact-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .button {
+    width: 100%;
+  }
+
   .language-toggle,
   .menu-toggle {
-    width: 100%;
+    width: auto;
   }
 
   .header-actions {
@@ -1388,12 +1472,12 @@
     justify-content: flex-end;
   }
 
-  .language-toggle {
-    width: auto;
+  .menu-toggle-label {
+    display: none;
   }
 
   .hero-art-shell {
-    min-height: 36rem;
+    min-height: 42rem;
   }
 
   /* Full-width panels so they don't bleed off screen */
@@ -1402,9 +1486,9 @@
     width: calc(100% - 2rem);
   }
 
-  /* Push secondary plate below where primary ends (~13rem from top) */
+  /* Push secondary plate below where primary ends (~16rem from top, accounting for 4 list items) */
   .hero-plate-secondary {
-    top: 13.5rem;
+    top: 16.5rem;
     bottom: auto;
     left: 1.25rem;
     right: 1.25rem;
@@ -1425,9 +1509,13 @@
   .overview-pillar-grid,
   .service-grid,
   .reason-grid,
-  .contact-card-grid,
-  .trust-metric-grid {
+  .contact-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Keep trust metrics 2-col so the lone card doesn't look broken */
+  .trust-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .marquee-card {
@@ -1441,5 +1529,16 @@
 
   .footer-grid {
     align-items: flex-start;
+  }
+
+  /* Prevent 15-digit VAT number from overflowing on small screens */
+  .footer-meta-item {
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  /* RTL: right-align chip list in Arabic so pills flow from right */
+  .app-shell.is-ar .hero-chip-list {
+    justify-content: flex-end;
   }
 }

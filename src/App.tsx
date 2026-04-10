@@ -714,11 +714,20 @@ function App() {
   useEffect(() => {
     document.documentElement.lang = language
     document.documentElement.dir = isArabic ? 'rtl' : 'ltr'
+    document.title = isArabic ? 'راكز | شريكك التشغيلي' : 'Rakiz | Your Operational Partner'
 
     const nextHash = language === 'ar' ? '#ar' : ''
     const nextUrl = `${window.location.pathname}${window.location.search}${nextHash}`
     window.history.replaceState(null, '', nextUrl)
   }, [isArabic, language])
+
+  // Show sticky CTA once user scrolls past the hero
+  const [pastHero, setPastHero] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setPastHero(window.scrollY > 480)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -731,6 +740,9 @@ function App() {
 
   return (
     <div className={`app-shell ${isArabic ? 'is-ar' : 'is-en'}`}>
+      <a className="skip-link" href="#main-content">
+        {isArabic ? 'تخطى إلى المحتوى' : 'Skip to main content'}
+      </a>
       <div className="ambient ambient-one" aria-hidden="true" />
       <div className="ambient ambient-two" aria-hidden="true" />
 
@@ -763,14 +775,14 @@ function App() {
               aria-label={menuOpen ? t.closeMenu : t.menu}
               onClick={() => setMenuOpen((open) => !open)}
             >
-              <span>{menuOpen ? t.closeMenu : t.menu}</span>
+              <span className="menu-toggle-label">{menuOpen ? t.closeMenu : t.menu}</span>
               <MenuIcon className="menu-icon" />
             </button>
           </div>
         </div>
       </header>
 
-      <main>
+      <main id="main-content">
         <section className="hero-section" id="top">
           <div className="hero-pattern" aria-hidden="true" />
           <div className="shell hero-grid">
@@ -810,6 +822,8 @@ function App() {
                   src={BASE + 'brand/art/cover-hero.jpeg'}
                   alt=""
                   aria-hidden="true"
+                  width="760"
+                  height="608"
                 />
                 <div className="hero-plate hero-plate-primary">
                   <img
@@ -973,7 +987,7 @@ function App() {
               <div className="contact-actions">
                 <a
                   className="button button-primary"
-                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(isArabic ? 'مرحباً، أود الاستفسار عن خدمات راكز.' : 'Hello, I would like to inquire about Rakiz services.')}`}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -1033,6 +1047,18 @@ function App() {
           </div>
         </section>
       </main>
+
+      {/* Sticky mobile CTA bar — appears once user scrolls past hero */}
+      <div className={`sticky-cta${pastHero ? '' : ' is-hidden'}`} aria-hidden={!pastHero}>
+        <a
+          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(isArabic ? 'مرحباً، أود الاستفسار عن خدمات راكز.' : 'Hello, I would like to inquire about Rakiz services.')}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <WhatsappIcon className="button-icon" />
+          <span>{t.contact.primaryCta}</span>
+        </a>
+      </div>
 
       <footer className="site-footer">
         <div className="shell footer-grid">
