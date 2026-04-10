@@ -1,6 +1,8 @@
 import { startTransition, useEffect, useState } from 'react'
 import './App.css'
 
+const BASE = import.meta.env.BASE_URL
+
 type Language = 'en' | 'ar'
 
 type IconProps = {
@@ -57,14 +59,14 @@ const partners: Partner[] = [
   {
     key: 'saci',
     kind: 'image',
-    src: '/partners/saci.svg',
+    src: 'partners/saci.svg',
     alt: 'SACI',
     className: 'partner-image-saci',
   },
   {
     key: 'iguzzini',
     kind: 'image',
-    src: '/partners/iguzzini.svg',
+    src: 'partners/iguzzini.svg',
     alt: 'iGuzzini',
     className: 'partner-image-iguzzini',
   },
@@ -78,7 +80,7 @@ const partners: Partner[] = [
   {
     key: 'mk-electric',
     kind: 'image',
-    src: '/partners/mk-electric.jpg',
+    src: 'partners/mk-electric.jpg',
     alt: 'MK Electric by Honeywell',
     className: 'partner-image-mk',
   },
@@ -92,14 +94,14 @@ const partners: Partner[] = [
   {
     key: 'binzagr',
     kind: 'image',
-    src: '/partners/binzagr.png',
+    src: 'partners/binzagr.png',
     alt: 'Binzagr',
     className: 'partner-image-binzagr',
   },
   {
     key: 'alfanar',
     kind: 'image',
-    src: '/partners/alfanar-official.png',
+    src: 'partners/alfanar-official.png',
     alt: 'alfanar',
     className: 'partner-image-alfanar',
   },
@@ -165,7 +167,7 @@ const partners: Partner[] = [
   {
     key: 'balubaid',
     kind: 'image',
-    src: '/partners/balubaid-official.png',
+    src: 'partners/balubaid-official.png',
     alt: 'Balubaid Group',
     className: 'partner-image-balubaid',
   },
@@ -674,7 +676,7 @@ function PartnerMark({ partner }: { partner: Partner }) {
     return (
       <img
         className={`partner-image ${partner.className ?? ''}`.trim()}
-        src={partner.src}
+        src={BASE + partner.src}
         alt=""
         loading="lazy"
         aria-hidden="true"
@@ -735,7 +737,7 @@ function App() {
       <header className="site-header">
         <div className="shell header-inner">
           <a className="brand-lockup" href="#top" aria-label="Rakiz home" onClick={closeMenu}>
-            <img className="brand-mark" src="/brand/logos/primary-white.svg" alt="Rakiz" />
+            <img className="brand-mark" src={BASE + 'brand/logos/primary-white.svg'} alt="Rakiz" />
           </a>
 
           <nav className={`site-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Primary">
@@ -805,14 +807,14 @@ function App() {
                 <div className="hero-art-glow" aria-hidden="true" />
                 <img
                   className="hero-art"
-                  src="/brand/art/cover-hero.jpeg"
+                  src={BASE + 'brand/art/cover-hero.jpeg'}
                   alt=""
                   aria-hidden="true"
                 />
                 <div className="hero-plate hero-plate-primary">
                   <img
                     className="hero-plate-logo"
-                    src="/brand/logos/primary-white.svg"
+                    src={BASE + 'brand/logos/primary-white.svg'}
                     alt=""
                     aria-hidden="true"
                   />
@@ -1035,7 +1037,7 @@ function App() {
       <footer className="site-footer">
         <div className="shell footer-grid">
           <div className="footer-brand">
-            <img src="/brand/logos/primary-white.svg" alt="Rakiz" />
+            <img src={BASE + 'brand/logos/primary-white.svg'} alt="Rakiz" />
             <p>{t.footer.tagline}</p>
           </div>
           <div className="footer-meta" aria-label={isArabic ? 'بيانات الشركة' : 'Company details'}>

@@ -693,11 +693,8 @@
     rgba(255, 255, 255, 0.92);
 }
 
-.marquee-card-alfanar {
-  border-color: rgba(0, 31, 62, 0.2);
-  background:
-    linear-gradient(180deg, rgba(0, 31, 62, 0.92), rgba(5, 33, 61, 0.96)),
-    rgba(0, 31, 62, 0.96);
+.marquee-card-alfanar .partner-image {
+  filter: brightness(0) saturate(100%);
 }
 
 .partner-image {
