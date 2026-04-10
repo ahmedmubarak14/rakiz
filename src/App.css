@@ -1477,7 +1477,7 @@
   }
 
   .hero-art-shell {
-    min-height: 42rem;
+    min-height: 48rem;
   }
 
   /* Full-width panels so they don't bleed off screen */
@@ -1486,9 +1486,10 @@
     width: calc(100% - 2rem);
   }
 
-  /* Push secondary plate below where primary ends (~16rem from top, accounting for 4 list items) */
+  /* Push secondary plate below primary. Arabic first item wraps to 2 lines
+     on real devices (~390px), making the primary plate ~19rem tall. */
   .hero-plate-secondary {
-    top: 16.5rem;
+    top: 20rem;
     bottom: auto;
     left: 1.25rem;
     right: 1.25rem;
@@ -1540,5 +1541,11 @@
   /* RTL: right-align chip list in Arabic so pills flow from right */
   .app-shell.is-ar .hero-chip-list {
     justify-content: flex-end;
+  }
+
+  /* Add clearance at the bottom so sticky CTA doesn't cover footer content.
+     CTA is 3.4rem tall + 1rem bottom offset + 1rem gap = 5.4rem total. */
+  .site-footer {
+    padding-bottom: 5.5rem;
   }
 }
