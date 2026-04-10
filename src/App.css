@@ -1393,17 +1393,19 @@
   }
 
   .hero-art-shell {
-    min-height: 28rem;
+    min-height: 20rem;
   }
 
+  /* Hide the glass overlay panels on mobile — too cramped */
   .hero-plate-primary,
   .hero-plate-secondary {
-    width: calc(100% - 2rem);
+    display: none;
   }
 
   .hero-proof-grid {
     left: 1rem;
     right: 1rem;
+    bottom: 1rem;
     justify-content: stretch;
   }
 
