@@ -1393,13 +1393,21 @@
   }
 
   .hero-art-shell {
-    min-height: 20rem;
+    min-height: 36rem;
   }
 
-  /* Hide the glass overlay panels on mobile — too cramped */
+  /* Full-width panels so they don't bleed off screen */
   .hero-plate-primary,
   .hero-plate-secondary {
-    display: none;
+    width: calc(100% - 2rem);
+  }
+
+  /* Push secondary plate below where primary ends (~13rem from top) */
+  .hero-plate-secondary {
+    top: 13.5rem;
+    bottom: auto;
+    left: 1.25rem;
+    right: 1.25rem;
   }
 
   .hero-proof-grid {
