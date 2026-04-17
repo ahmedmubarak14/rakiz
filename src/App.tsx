@@ -1,6 +1,5 @@
 import { startTransition, useEffect, useState } from 'react'
 import './App.css'
-import BrandPortal from './BrandPortal'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -199,15 +198,6 @@ function getInitialLanguage(): Language {
   }
 
   return 'en'
-}
-
-function isBrandPortalRoute() {
-  if (typeof window === 'undefined') {
-    return false
-  }
-
-  const pathname = window.location.pathname.replace(/\/+$/, '')
-  return pathname.endsWith('/brand') || window.location.hash.startsWith('#/brand')
 }
 
 const copy = {
@@ -728,7 +718,7 @@ function PartnerMark({ partner }: { partner: Partner }) {
   )
 }
 
-function LandingPage() {
+function App() {
   const [language, setLanguage] = useState<Language>(getInitialLanguage)
   const [menuOpen, setMenuOpen] = useState(false)
   const isArabic = language === 'ar'
@@ -788,9 +778,6 @@ function LandingPage() {
             <button className="language-toggle" type="button" onClick={toggleLanguage}>
               {t.switchLanguage}
             </button>
-            <a className="button button-secondary button-compact button-brand-portal" href={BASE + 'brand'}>
-              <span>{isArabic ? 'بوابة الهوية' : 'Brand portal'}</span>
-            </a>
             <a className="button button-primary button-compact" href="#contact">
               <span>{t.contact.label}</span>
               <ArrowIcon className="button-icon" />
@@ -1106,28 +1093,6 @@ function LandingPage() {
       </footer>
     </div>
   )
-}
-
-function App() {
-  const [brandPortalRoute, setBrandPortalRoute] = useState(isBrandPortalRoute)
-
-  useEffect(() => {
-    const syncRoute = () => setBrandPortalRoute(isBrandPortalRoute())
-
-    window.addEventListener('popstate', syncRoute)
-    window.addEventListener('hashchange', syncRoute)
-
-    return () => {
-      window.removeEventListener('popstate', syncRoute)
-      window.removeEventListener('hashchange', syncRoute)
-    }
-  }, [])
-
-  if (brandPortalRoute) {
-    return <BrandPortal />
-  }
-
-  return <LandingPage />
 }
 
 export default App
