@@ -1,5 +1,6 @@
 import { startTransition, useEffect, useState } from 'react'
 import './App.css'
+import BrandPortal from './BrandPortal'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -198,6 +199,15 @@ function getInitialLanguage(): Language {
   }
 
   return 'en'
+}
+
+function isBrandPortalRoute() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  const pathname = window.location.pathname.replace(/\/+$/, '')
+  return pathname.endsWith('/brand') || window.location.hash.startsWith('#/brand')
 }
 
 const copy = {
@@ -461,7 +471,7 @@ const copy = {
     },
     services: {
       label: 'الخدمات',
-      title: 'تغطية تشمل الشغل الفني، المنشآت، واحتياجات التشغيل اليومية.',
+      title: 'تغطية تشمل التشغيل الفني وجميع الاحتياجات اليومية للمنشآت.',
       description:
         'راكز تجمع بين الدعم الهندسي، الصيانة، التوريد التقني، ومستلزمات العمل تحت مظلة تشغيلية واحدة.',
       items: [
@@ -540,7 +550,7 @@ const copy = {
     },
     trust: {
       label: 'الثقة',
-      title: 'شركات من كل مكان في المملكة تثق فينا.',
+      title: 'شركات كثيرة من جميع انحاء الممكلة تثق فينا',
       description:
         'من المقاولين الحكوميين للقطاع الخاص، نحن على أرض الواقع ننفّذ من اليوم الأول.',
       metrics: [
@@ -552,7 +562,7 @@ const copy = {
     },
     contact: {
       label: 'تواصل معنا',
-      title: 'خلّ راكز يشيل عنك الحمل التشغيلي.',
+      title: 'خلّ راكز تشيل عنك الحمل التشغيلي.',
       description:
         'تواصل معنا لطلبات التوريد، التنفيذ الفني، الطلبات الخاصة، أو التغطية التشغيلية المستمرة.',
       primaryCta: 'تواصل معنا',
@@ -718,7 +728,7 @@ function PartnerMark({ partner }: { partner: Partner }) {
   )
 }
 
-function App() {
+function LandingPage() {
   const [language, setLanguage] = useState<Language>(getInitialLanguage)
   const [menuOpen, setMenuOpen] = useState(false)
   const isArabic = language === 'ar'
@@ -778,6 +788,9 @@ function App() {
             <button className="language-toggle" type="button" onClick={toggleLanguage}>
               {t.switchLanguage}
             </button>
+            <a className="button button-secondary button-compact button-brand-portal" href={BASE + 'brand'}>
+              <span>{isArabic ? 'بوابة الهوية' : 'Brand portal'}</span>
+            </a>
             <a className="button button-primary button-compact" href="#contact">
               <span>{t.contact.label}</span>
               <ArrowIcon className="button-icon" />
@@ -1093,6 +1106,28 @@ function App() {
       </footer>
     </div>
   )
+}
+
+function App() {
+  const [brandPortalRoute, setBrandPortalRoute] = useState(isBrandPortalRoute)
+
+  useEffect(() => {
+    const syncRoute = () => setBrandPortalRoute(isBrandPortalRoute())
+
+    window.addEventListener('popstate', syncRoute)
+    window.addEventListener('hashchange', syncRoute)
+
+    return () => {
+      window.removeEventListener('popstate', syncRoute)
+      window.removeEventListener('hashchange', syncRoute)
+    }
+  }, [])
+
+  if (brandPortalRoute) {
+    return <BrandPortal />
+  }
+
+  return <LandingPage />
 }
 
 export default App
